@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurante</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f6f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1f5c4a;
+    }
+
+    .contenedor {
+      display: flex;
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    .caja {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      flex: 1;
+      min-width: 280px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    button {
+      background: #d6342c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 14px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #b32820;
+    }
+
+    .ticket {
+      border: 2px dashed #1f5c4a;
+      font-family: "Courier New", monospace;
+    }
+
+    .total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 15px;
+      padding-top: 10px;
+      border-top: 2px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Restaurante</h1>
+
+  <div class="contenedor">
+
+    <div class="caja">
+      <h2>Menú</h2>
+      <ul id="menu"></ul>
+    </div>
+
+    <div class="caja ticket">
+      <h2>Mi ticket</h2>
+      <ul id="lista-ticket"></ul>
+      <div class="total">
+        <span>Total</span>
+        <span id="total">$0</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="cliente.js"></script>
+</body>
+</html>
