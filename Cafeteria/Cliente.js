@@ -1,8 +1,9 @@
 const productos = [
-  { id: 1, nombre: "Taco", precio: 25 },
-  { id: 2, nombre: "Refresco", precio: 20 },
-  { id: 3, nombre: "Quesadilla", precio: 35 },
-  { id: 4, nombre: "Pan dulce", precio: 10}
+  { id: 1, nombre: "Pan dulce", precio: 10},
+  { id: 2, nombre: "Cafe del día", precio: 40},
+  { id: 3, nombre: "Taco", precio: 25 },
+  { id: 4, nombre: "Refresco", precio: 20 },
+  { id: 5, nombre: "Quesadilla", precio: 35 },
 ];
 
 const pedidos = [];
