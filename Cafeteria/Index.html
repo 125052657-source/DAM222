@@ -1,104 +1,111 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Restaurante</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafetería UPQ - Cliente</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f3f6f2;
-      margin: 0;
-      padding: 20px;
-    }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f1ed;
+            color: #3e2723;
+            margin: 0;
+            padding: 20px;
+        }
 
-    h1 {
-      text-align: center;
-      color: #1f5c4a;
-    }
+        h1, h2 {
+            text-align: center;
+        }
 
-    .contenedor {
-      display: flex;
-      gap: 20px;
-      max-width: 800px;
-      margin: 0 auto;
-      flex-wrap: wrap;
-    }
+        .contenedor {
+            max-width: 1000px;
+            margin: auto;
+        }
 
-    .caja {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      flex: 1;
-      min-width: 280px;
-    }
+        .modulo {
+            display: none;
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #0002;
+        }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+        .activo {
+            display: block;
+        }
 
-    li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid #ddd;
-    }
+        input {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
 
-    button {
-      background: #d6342c;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 14px;
-      cursor: pointer;
-    }
+        button {
+            background: #6d4c41;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
 
-    button:hover {
-      background: #b32820;
-    }
+        button:hover {
+            background: #4e342e;
+        }
 
-    .ticket {
-      border: 2px dashed #1f5c4a;
-      font-family: "Courier New", monospace;
-    }
+        .eliminar {
+            background: #c62828;
+        }
 
-    .total {
-      display: flex;
-      justify-content: space-between;
-      font-weight: bold;
-      font-size: 20px;
-      margin-top: 15px;
-      padding-top: 10px;
-      border-top: 2px solid black;
-    }
-  </style>
+        .producto, .pedido {
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .total {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+    </style>
 </head>
 
 <body>
-  <h1>Restaurante</h1>
 
-  <div class="contenedor">
+<div class="contenedor">
 
-    <div class="caja">
-      <h2>Menú</h2>
-      <ul id="menu"></ul>
-    </div>
+    <h1>Cafetería UPQ</h1>
 
-    <div class="caja ticket">
-      <h2>Mi ticket</h2>
-      <ul id="lista-ticket"></ul>
-      <div class="total">
-        <span>Total</span>
-        <span id="total">$0</span>
-      </div>
-    </div>
+    <section id="cliente" class="modulo activo">
+        <h2>Cliente</h2>
 
-  </div>
+        <input type="text" id="nombreCliente" placeholder="Nombre del cliente">
 
-  <script src="cliente.js"></script>
+        <h3>Productos disponibles</h3>
+        <div id="productosCliente"></div>
+
+        <h3>Mi pedido</h3>
+        <div id="carritoCliente"></div>
+
+        <p class="total">
+            Total: $<span id="totalCliente">0.00</span>
+        </p>
+
+        <button onclick="crearPedido()">Enviar pedido</button>
+
+        <h3>Mis pedidos</h3>
+        <div id="pedidosCliente"></div>
+    </section>
+
+</div>
+
+<script src="cliente.js"></script>
+
 </body>
 </html>
