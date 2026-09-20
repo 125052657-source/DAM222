@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafetería UPQ</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f1ed;
+            color: #3e2723;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .contenedor {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .navegacion {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .navegacion button {
+            background: #6d4c41;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .modulo {
+            display: none;
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #0002;
+        }
+
+        .activo {
+            display: block;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            background: #6d4c41;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #4e342e;
+        }
+
+        .eliminar {
+            background: #c62828;
+        }
+
+        .editar {
+            background: #ef6c00;
+        }
+
+        .producto, .pedido {
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .total {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .mensaje {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <h1>Cafetería UPQ</h1>
+
+    <div class="navegacion">
+        <button onclick="mostrarModulo('caja')">Caja</button>
+        <button onclick="mostrarModulo('cocina')">Cocina</button>
+        <button onclick="mostrarModulo('cliente')">Cliente</button>
+    </div>
+
+    <!-- MÓDULO CAJA -->
+    <section id="caja" class="modulo activo">
+        <h2>Caja</h2>
+
+        <h3>Productos disponibles</h3>
+        <div id="productosCaja"></div>
+
+        <h3>Pedidos registrados</h3>
+        <div id="pedidosCaja"></div>
+
+        <h3>Total de ventas</h3>
+        <p id="totalCaja" class="total">$0.00</p>
+    </section>
+
+    <!-- MÓDULO COCINA -->
+    <section id="cocina" class="modulo">
+        <h2>Cocina</h2>
+
+        <input type="text" id="nombreProducto" placeholder="Nombre del producto">
+        <input type="number" id="precioProducto" placeholder="Precio">
+
+        <button onclick="guardarProducto()">Guardar producto</button>
+        <button onclick="cancelarEdicion()">Cancelar</button>
+
+        <h3>Lista de productos</h3>
+        <div id="listaProductos"></div>
+    </section>
+
+    <!-- MÓDULO CLIENTE -->
+    <section id="cliente" class="modulo">
+        <h2>Cliente</h2>
+
+        <input type="text" id="nombreCliente" placeholder="Nombre del cliente">
+
+        <h3>Productos disponibles</h3>
+        <div id="productosCliente"></div>
+
+        <h3>Mi pedido</h3>
+        <div id="carritoCliente"></div>
+
+        <p class="total">
+            Total: $<span id="totalCliente">0.00</span>
+        </p>
+
+        <button onclick="crearPedido()">Enviar pedido</button>
+
+        <h3>Mis pedidos</h3>
+        <div id="pedidosCliente"></div>
+    </section>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
