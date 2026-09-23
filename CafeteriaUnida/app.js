@@ -1,4 +1,4 @@
-const productosIniciales = [
+/* const productosIniciales = [
     { id: 1, nombre: "Café americano", precio: 35 },
     { id: 2, nombre: "Capuchino", precio: 55 },
     { id: 3, nombre: "Pan dulce", precio: 25 },
@@ -334,4 +334,4 @@ mostrarProductosCaja();
 mostrarProductosCliente();
 listarProductos();
 mostrarPedidosCaja();
-mostrarCarrito();
+mostrarCarrito(); */
