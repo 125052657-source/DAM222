@@ -1,20 +1,23 @@
 const readline = require('node:readline/promises');
 const rl = readline.createInterface({input: process.stdin, output: process.stdout});
-
-
+ 
+ 
 let productos = [
     { nombre: "Cafe del dia", precio: 30, disponible: true },
     { nombre: "Capuchino", precio: 50, disponible: true },
     { nombre: "Pan dulce", precio: 10, disponible: true }
 ];
-
+ 
 const promociones = [
     "Todos los Jueves 2X1 en Capuchinos",
     "Todos los Viernes Pan dulce a mitad de precio"
 ];
-
+ 
 let miPedido = [];
-
+let contadorId = 1;
+ 
+const ESTADOS = ["Pedido recibido", "Preparando", "Empacando", "Pedido Entregado"];
+ 
 function mostrarMenu() {
     console.log("---MENU---");
     const menu = productos.map(p => `${p.nombre} - $${p.precio}`);
@@ -25,54 +28,94 @@ function monstrarDispo() {
     productos.forEach(p => {
         if (p.disponible) {
             console.log(p.nombre);
-
+ 
         }
     }
     );
 }
-
+ 
 function mostrarPromo() {
     console.log("---PROMOCIONES---");
     promociones.forEach(promo => console.log(promo));
-
+ 
 }
-
+ 
 function agregarProdu(nombre, precio) {
     productos.push({nombre: nombre, precio: precio, disponible: true });
     console.log(`Producto agregado: ${nombre} - $${precio}`);
 }
 
+function avanzarEstado(pedido) {
+    const indiceActual = ESTADOS.indexOf(pedido.estado);
+ 
+    if (pedido.estado === "Pedido Entregado" || pedido.estado === "Cancelado") {
+        return;
+    }
+ 
+    const demora = 2000 + Math.floor(Math.random() * 3000);
+ 
+    setTimeout(() => {
+        const seCancela = Math.random() < 0.1;
+ 
+        if (seCancela) {
+            pedido.estado = "Cancelado";
+            console.log(`\n[Pedido #${pedido.id}] ${pedido.cantidad}x ${pedido.producto} -> Cancelado`);
+            return;
+        }
+ 
+        const siguienteEstado = ESTADOS[indiceActual + 1];
+        pedido.estado = siguienteEstado;
+        console.log(`\n[Pedido #${pedido.id}] ${pedido.cantidad}x ${pedido.producto} -> ${siguienteEstado}`);
+ 
+        if (siguienteEstado !== "Pedido Entregado") {
+            avanzarEstado(pedido);
+        }
+    }, demora);
+}
+ 
 function crearPedido(nombreProducto, cantidad) {
     let encontrado = false;
-
+ 
     productos.forEach(p => {
         if (p.nombre.toLowerCase() == nombreProducto.toLowerCase()) {
             encontrado = true;
     }
     });
-
+ 
 if (!encontrado) {
     console.log("Ese producto no exixte en el menu.");
     return;
 }
-
-miPedido.push({producto: nombreProducto, cantidad: cantidad });
-console.log(`Pedido creado: ${cantidad}x ${nombreProducto}`);
-    
+ 
+    const nuevoPedido = {
+        id: contadorId++,
+        producto: nombreProducto,
+        cantidad: cantidad,
+        estado: "Pedido recibido"
+    };
+ 
+    miPedido.push(nuevoPedido);
+    console.log(`Pedido creado: #${nuevoPedido.id} - ${cantidad}x ${nombreProducto} -> ${nuevoPedido.estado}`);
+ 
+    avanzarEstado(nuevoPedido);
 }
-
+ 
 function listarMisPedidos() {
     console.log("---Mis Pedidos---");
+    if (miPedido.length === 0) {
+        console.log("Aun no tienes pedidos.");
+        return;
+    }
     miPedido.forEach(p => {
-        console.log(`${p.cantidad}x ${p.producto}`);
+        console.log(`#${p.id} - ${p.cantidad}x ${p.producto} -> ${p.estado}`);
     });
 }
-
+ 
 async function iniciar() {
   let salir = false;
  
   while (!salir) {
-    console.log("\n===== CAFETERIA =====");
+    console.log("----- CAFETERIA -----");
     console.log("1. Ver menu");
     console.log("2. Ver disponibles");
     console.log("3. Ver promociones");
@@ -80,9 +123,9 @@ async function iniciar() {
     console.log("5. Crear pedido");
     console.log("6. Ver mis pedidos");
     console.log("7. Salir");
-
+ 
     const opcion = await rl.question("Elige una opcion: ");
-
+ 
     if (opcion == "1") {
         mostrarMenu();
     } else if (opcion === "2") {
@@ -92,7 +135,7 @@ async function iniciar() {
     } else if (opcion === "4") {
         const nombre = await rl.question("Nombre del producto nuevo: ");
         const precioTexto = await rl.question("Precio: ");
-        agregarProdu(nombre, Numbre(precioTexto));
+        agregarProdu(nombre, Number(precioTexto));
     } else if (opcion === "5") {
         const nombreProducto = await rl.question("Que producto quieres pedir? ")
         const cantidadTexto = await rl.question("Cuantos quieres ");
@@ -106,10 +149,9 @@ async function iniciar() {
         console.log("Opcion no valida, intenta de nuevo.");
     }
   }
-
+ 
 rl.close();
-
+ 
 }
-
+ 
 iniciar();
-
