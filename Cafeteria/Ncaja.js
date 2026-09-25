@@ -5,10 +5,35 @@ let pedidos = [];
  
 const IVA = 0.16;
  
+function procesarPedidoConCallback(pedido, callback) {
+  const demora = 2000 + Math.floor(Math.random() * 3000);
+ 
+  setTimeout(() => {
+    const seCancela = Math.random() < 0.15;
+ 
+    if (seCancela) {
+      callback(new Error(`Pedido cancelado: ${pedido.cantidad}x ${pedido.producto} (${pedido.cliente})`), null);
+      return;
+    }
+ 
+    callback(null, `Pedido listo: ${pedido.cantidad}x ${pedido.producto} para ${pedido.cliente}`);
+  }, demora);
+}
+ 
+function notificarResultado(error, resultado) {
+  if (error) {
+    console.log(`\n[NOTIFICACION] ${error.message}`);
+    return;
+  }
+  console.log(`\n[NOTIFICACION] ${resultado}`);
+}
+ 
 function agregarPedido(cliente, producto, cantidad, precio) {
   let nuevoPedido = { cliente, producto, cantidad, precio };
   pedidos.push(nuevoPedido);
   console.log(`Pedido agregado: ${cantidad}x ${producto} para ${cliente}`);
+ 
+  procesarPedidoConCallback(nuevoPedido, notificarResultado);
 }
  
 function listarPedidos() {
@@ -70,4 +95,3 @@ async function iniciar() {
 }
  
 iniciar();
- 
