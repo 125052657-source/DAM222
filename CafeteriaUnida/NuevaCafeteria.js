@@ -147,9 +147,87 @@ function listarProductos() {
     });
 }
 
+async function buscarProducto() {
+    const id = Number(await rl.question("Ingrese el ID del producto que desea buscar: "));
+    const producto = productos.find(p => p.id === id);
+
+    if (!producto) { console.log("No se encontro el producto."); return; }
+
+    console.log("\nProducto encontrado:");
+    console.log(`ID: ${producto.id}`);
+    console.log(`Nombre: ${producto.nombre}`);
+    console.log(`Precio: $${producto.precio}`);
+    console.log(`Categoria: ${producto.categoria}`);
+    console.log(`Disponible: ${producto.disponible ? "Si" : "No"}`);
+}
+
+async function editarProducto() {
+    const id = Number(await rl.question("Ingrese el ID del producto que desea editar: "));
+    const producto = productos.find(p => p.id === id);
+
+    if (!producto) { console.log("No se encontro el producto."); return; }
+
+    const nuevoNombre = await rl.question("Ingrese el nuevo nombre: ");
+    if (nuevoNombre.trim() === "") { console.log("El nombre no puede estar vacio."); return; }
+
+    const nuevoPrecio = Number(await rl.question("Ingrese el nuevo precio: "));
+    if (isNaN(nuevoPrecio) || nuevoPrecio <= 0) { console.log("El precio debe ser mayor que 0."); return; }
+
+    const nuevaCategoria = await rl.question("Ingrese la nueva categoria (Bebida/Postre): ");
+    if (nuevaCategoria !== "Bebida" && nuevaCategoria !== "Postre") { console.log("Categoria no valida."); return; }
+
+    const dispoTexto = await rl.question("Disponible? (si/no): ");
+
+    producto.nombre = nuevoNombre;
+    producto.precio = nuevoPrecio;
+    producto.categoria = nuevaCategoria;
+    producto.disponible = dispoTexto.toLowerCase() === "si";
+
+    console.log("Producto actualizado.");
+}
+
+async function eliminarProducto() {
+    const id = Number(await rl.question("Ingrese el ID del producto que desea eliminar: "));
+    const producto = productos.find(p => p.id === id);
+
+    if (!producto) { console.log("No se encontro el producto."); return; }
+
+    productos = productos.filter(p => p.id !== id);
+    console.log("Producto eliminado.");
+}
+
+function productosBaratos() {
+    const baratos = productos.filter(p => p.precio < 50);
+    console.log("\n---- PRODUCTOS BARATOS ----");
+    if (baratos.length === 0) { console.log("No hay productos baratos."); return; }
+    baratos.forEach(p => console.log(`${p.nombre} - $${p.precio}`));
+}
+
+function productosCaros() {
+    const caros = productos.filter(p => p.precio >= 50);
+    console.log("\n---- PRODUCTOS CAROS ----");
+    if (caros.length === 0) { console.log("No hay productos caros."); return; }
+    caros.forEach(p => console.log(`${p.nombre} - $${p.precio}`));
+}
+
+function mostrarBebidas() {
+    const bebidas = productos.filter(p => p.categoria === "Bebida");
+    console.log("\n---- BEBIDAS ----");
+    bebidas.forEach(p => console.log(`${p.nombre} - $${p.precio}`));
+}
+
+function mostrarPostres() {
+    const postres = productos.filter(p => p.categoria === "Postre");
+    console.log("\n---- POSTRES ----");
+    postres.forEach(p => console.log(`${p.nombre} - $${p.precio}`));
+}
+
 function mostrarMenu() {
     console.log("\n---MENU---");
-    productos.forEach(p => console.log(`${p.nombre} - $${p.precio}`));
+    
+    const lineasMenu = productos.map(p => `${p.nombre} - $${p.precio} (${p.categoria})`);
+
+    lineasMenu.forEach(linea => console.log(linea));
 }
 
 function mostrarDisponibles() {
@@ -282,17 +360,31 @@ async function menuCocina() {
         console.log("\n===== COCINA =====");
         console.log("1. Agregar producto");
         console.log("2. Listar productos");
-        console.log("3. Revisar ingredientes");
-        console.log("4. Agregar ingredientes");
-        console.log("5. Volver al menu principal");
+        console.log("3. Buscar producto (por ID)");
+        console.log("4. Editar producto");
+        console.log("5. Eliminar producto");
+        console.log("6. Productos baratos");
+        console.log("7. Productos caros");
+        console.log("8. Mostrar bebidas");
+        console.log("9. Mostrar postres");
+        console.log("10. Revisar ingredientes");
+        console.log("11. Agregar ingredientes");
+        console.log("12. Volver al menu principal");
 
         const opcion = await rl.question("Elige una opcion: ");
 
         if (opcion === "1") await agregarProducto();
         else if (opcion === "2") listarProductos();
-        else if (opcion === "3") mostrarIngredientes();
-        else if (opcion === "4") await agregarIngredientes();
-        else if (opcion === "5") volver = true;
+        else if (opcion === "3") await buscarProducto();
+        else if (opcion === "4") await editarProducto();
+        else if (opcion === "5") await eliminarProducto();
+        else if (opcion === "6") productosBaratos();
+        else if (opcion === "7") productosCaros();
+        else if (opcion === "8") mostrarBebidas();
+        else if (opcion === "9") mostrarPostres();
+        else if (opcion === "10") mostrarIngredientes();
+        else if (opcion === "11") await agregarIngredientes();
+        else if (opcion === "12") volver = true;
         else console.log("Opcion no valida, intenta de nuevo.");
     }
 }
@@ -300,7 +392,8 @@ async function menuCocina() {
 async function iniciar() {
     let salir = false;
 
-    console.log("       CAFETERIA UPQ");
+    console.log("================================");
+    console.log("       SISTEMA DE CAFETERIA");
     console.log("================================");
 
     while (!salir) {
