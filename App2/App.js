@@ -8,18 +8,13 @@ export default function App() {
   return (
     <View style={styles.container}>
 
-      <Text>Hola Mundo</Text>
-      <Image source={require("./assets/wave.png")}></Image>
-      <Text>-------------------------------------</Text>
-      <Saludo></Saludo>
-      <Saludo/>
-      <Text>-------------------------------------</Text>
-      <Saludo2></Saludo2>
-      <Saludo2/>
-      <StatusBar style="auto" />
-      <Text>-------------------------------------</Text>
-      <Perfil></Perfil>
-      <Perfil/>
+      
+      <Perfil nombre="Genaro" carrera="ITIID" materia="Movil" cuatri="4to"/>
+
+      <Perfil nombre="Jesus" carrera="ITIID" materia="Movil" cuatri="4to"/>
+
+      <Perfil nombre="Fran" carrera="ITIID" materia="Movil" cuatri="4to"/>
+      
 
       
     </View>
