@@ -1,38 +1,49 @@
-/*1. zona de importaciones */
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import {Perfil} from '../components/Perfil';
+import {View, Text, StyleSheet,Button } from 'react-native';
+import {useState} from 'react';
 
 
-/2. zona de main/ 
-export default function Tarjetas() {
-  return (
+export const Perfil=({nombre, carrera,materia,cuatri,style})=>{
 
-    <View style={styles.container}>
+  const [mostrar, setMostrar]=useState(false);
 
-      <Perfil style={styles.tarjeta1} nombre="Alan" carrera="Sistemas" materia="Desarrollo de aplicaciones Moviles" cuatri="4"/>
+return(
+  
+    <View style={[estilos.tarjeta, style]}>
+       <Text style={estilos.nombre}>{nombre}</Text>
 
-      <Perfil style={styles.tarjeta2} nombre="Jose" carrera="Sistemas" materia="Desarrollo de aplicaciones Moviles" cuatri="4"/>
+       {mostrar &&
+        <>
+       <Text style={estilos.carrera}>{carrera}</Text>
+       <Text style={estilos.otroTexto}>{materia}</Text>
+       <Text style={estilos.otroTexto}>{cuatri}</Text>
+       </>
+      }
+      <Button title="ver perfil" onPress={()=>setMostrar(!mostrar)}/>
 
-      <Perfil style={styles.tarjeta3} nombre="Edu" carrera="Sistemas" materia="Desarrollo de aplicaciones Moviles" cuatri="4"/>
-      
+</View>
+ 
+)}
 
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-/3. zona de estilos y posicionamiento/
-const styles = StyleSheet.create({
-  container: {
-    flex:1,
-    backgroundColor: '#fff',
-    
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
+const estilos=StyleSheet.create({
+  nombre:{
+  fontSize:24,
+  fontWeight:'600',
+  textTransform:'uppercase',
+},
+  carrera:{
+    fontSize:18,
+    color:'purple',
+    fontFamily:'Roboto',
   },
-  tarjeta1:{backgroundColor:'pink'},
-  tarjeta2:{backgroundColor:'red'},
-  tarjeta3:{backgroundColor:'yellow'},
+  otroTexto:{
+    fontSize:12,
+    fontFamily:'Courier',
+    fontStyle:'italic',
+  },
+    tarjeta:{
+    borderWidth:3,
+    borderRadius:10,
+    padding:15,
+    margin:10,
+  },
 });
