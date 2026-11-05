@@ -1,30 +1,84 @@
-/* 1. Zona de importaciones */
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, Text, View, FlatList, SectionList } from "react-native";
 
+const datosFlas = [
+    { id: '1', nombre: 'Juan'},
+    { id: '2', nombre: 'Maria'},
+    { id: '3', nombre: 'Pedro'},
+    { id: '4', nombre: 'Emilio'}
+];
 
+const datosSaction = [
+    {
+        titulo: 'frutas',
+        data: ['Manzana', 'Platano'],
+    },
+    {
+        titulo: 'Verduras',
+        data: ['Zanahoria', 'Lechuga'],
+    },
+];
 
-/* 2. Zona Main */
-export default function FlatList() {
-return (
-    <View style={styles.container}>
+export default function SectionListScreen() {
+    return (
+        <View style={styles.container}>
+            <Text style={styles.titulo}>Ejemplo flatlist</Text>
+            <FlatList
+                data={datosFlas}
+                keyExtractor={(item) => item.id}
+                renderItem={({item}) => (
+                    <Text style={styles.item}>{item.nombre}</Text>
+                )}
+            >   
+            </FlatList>
 
+            
+            <SectionList
+            sections={datosSaction}
+            keyExtractor={(item, index) => item + index}
+            renderItem={({item}) => (
+                <Text style={styles.item}>{item}</Text>
+            )}
+            renderSectionHeader={({section}) => (
+                <Text style={styles.encabezado}>{section.titulo}</Text>
+            )}
+            >
 
-        <Text> Aqui va la practica de Edgar</Text>
+            </SectionList>
 
-
-
-    <StatusBar style="auto" />
-    </View>
-);
+        </View>
+    )
 }
 
-/* 3. Zona de estilos y posicionamiento */
 const styles = StyleSheet.create({
-container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-}
+  
+  container: {
+    flex: 1,               
+    paddingTop: 50,        
+    paddingHorizontal: 20, 
+    backgroundColor: '#efffc4', 
+  },
+
+  titulo: {
+    fontSize: 20,          
+    fontWeight: 'bold',    
+    marginTop: 20,         
+    marginBottom: 10,      
+    textAlign: 'center',   
+    color: 'purple',
+  },
+
+  encabezado: {
+    fontSize: 16,          
+    fontWeight: 'bold',    
+    backgroundColor: 'gold', 
+    padding: 5, 
+    color: 'white'       
+  },
+
+  item: {
+    fontSize: 14,       
+    padding: 10,           
+    borderBottomWidth: 1,  
+    borderBottomColor: '#121212', 
+  },
 });
