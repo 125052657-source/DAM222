@@ -9,7 +9,7 @@ const datosFlas = [
 
 const datosSaction = [
     {
-        titulo: 'frutas',
+        titulo: 'Frutas',
         data: ['Manzana', 'Platano'],
     },
     {
@@ -21,7 +21,7 @@ const datosSaction = [
 export default function SectionListScreen() {
     return (
         <View style={styles.container}>
-            <Text style={styles.titulo}>Ejemplo flatlist</Text>
+            <Text style={styles.titulo}>Ejemplo Flatlist</Text>
             <FlatList
                 data={datosFlas}
                 keyExtractor={(item) => item.id}
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     marginTop: 20,         
     marginBottom: 10,      
     textAlign: 'center',   
-    color: 'purple',
+    color: 'black',
   },
 
   encabezado: {
@@ -82,3 +82,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#121212', 
   },
 });
+
+
+

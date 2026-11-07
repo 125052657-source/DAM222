@@ -21,7 +21,6 @@ export default function App() {
       <View style={styles.splashContainer}>
         <Text style={styles.splashIcon}>😸</Text>
         <Text style={styles.splashTitle}>BIENVENIDOS</Text>
-        <Text style={styles.splashSub}>Práctica No.9: Componentes Nativos</Text>
         <ActivityIndicator size="large" color="#fff" style={{marginTop: 20}} />
         <Text style={styles.splashLoading}>Cargando presentación...</Text>
         <StatusBar style="light" />
@@ -55,7 +54,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#14532d', // Verde UPQ
+    backgroundColor: '#000000', // Verde UPQ
     width: '100%',
     height: Platform.OS === 'web' ? '100vh' : '100%',
   },
