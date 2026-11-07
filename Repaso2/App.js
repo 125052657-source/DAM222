@@ -14,7 +14,7 @@ export default function App() {
 
   // SplashScreen: 2 segundos
   useEffect(() => {
-    const t = setTimeout(() => setShowSplash(false), 3000);
+    const t = setTimeout(() => setShowSplash(false), 2000);
     return () => clearTimeout(t);
   }, []);
 
@@ -54,7 +54,7 @@ export default function App() {
   }
 
   return (
-    <ImageBackground source={require('./assets/Libros.jpeg')} style={styles.fondo}>
+    <ImageBackground source={require('./assets/Fondo.jpeg')} style={styles.fondo}>
       <View style={styles.container}>
         <Text style={styles.titulo}>Catálogo de Libros</Text>
 
