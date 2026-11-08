@@ -1,30 +1,68 @@
-/* 1. Zona de importaciones */
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, Text } from 'react-native';
+import {
+    StyleSheet, Text, View, Button, ActivityIndicator as RNActivityIndicator
+} from 'react-native';
+import { useState } from 'react';
+import Inicio from "./Inicio";
 
+export default function ActivityIndicator({ setScreen }) {
+    const [cargando, setCargando] = useState(false);
+    const [pantalla, setPantalla] = useState('principal');
 
+    function cambiarPantalla(destino) {
+        setCargando(true);
 
-/* 2. Zona Main */
-export default function ActivityIndicator() {
-return (
-    <View style={styles.container}>
+        setTimeout(() => {
+            setPantalla(destino);
+            setCargando(false);
+        }, 1500);
+    }
 
+    if (cargando) {
+        return (
+            <View style={styles.cargando}>
+                <RNActivityIndicator size="large" />
+                <Text style={styles.texto}>Cargando...</Text>
+            </View>
+        );
+    }
 
-        <Text> Aqui va la practica de Yoshua</Text>
+    if (pantalla === 'inicio') {
+        return (
+            <Inicio onRegresar={() => cambiarPantalla('principal')} />
+        );
+    }
 
-
-
-    <StatusBar style="auto" />
-    </View>
-);
+    return (
+        <View style={styles.container}>
+            <Text style={styles.titulo}>Pantalla Principal</Text>
+            <Button title='Ir a Inicio' onPress={() => cambiarPantalla('inicio')} />
+            <StatusBar style="auto" />
+        </View>
+    );
 }
 
-/* 3. Zona de estilos y posicionamiento */
 const styles = StyleSheet.create({
-container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-}
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20,
+        gap: 15,
+    },
+    cargando: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    titulo: {
+        fontSize: 24,
+        marginBottom: 20
+    },
+    texto: {
+        marginTop: 10,
+        fontSize: 16
+    },
 });
+
+
