@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@gorhom/bottom-sheet": "^5.2.14",
+    "react-native-gesture-handler": "^3.5.0",
+    "react-native-reanimated": "^4.7.2"
+  }
+}
