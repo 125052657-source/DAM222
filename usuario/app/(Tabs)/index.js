@@ -5,3 +5,4 @@ export default function index() {
     return <Redirect href="/consulta"/>
 
 }
+

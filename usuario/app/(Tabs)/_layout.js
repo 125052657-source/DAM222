@@ -4,12 +4,10 @@ import {Ionicons} from "@expo/vector-icons"
 export default function TabsLayout() {
     return(
         <Tabs>
-
             <Tabs.Screen
                 name="index"
                 options={{title:"Inicio", href:null,}}
             />
-
             <Tabs.Screen
                 name="alta"
                 options={{
@@ -19,7 +17,6 @@ export default function TabsLayout() {
                     )
                 }}
             />
-
             <Tabs.Screen
                 name="consulta"
                 options={{
@@ -29,7 +26,6 @@ export default function TabsLayout() {
                     )
                 }}
             />
-
         </Tabs>
     );
 }
